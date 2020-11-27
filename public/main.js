@@ -79,6 +79,10 @@ function outputUsers(users) {
     li.innerText = user.username;
     userList.appendChild(li);
   });
+<<<<<<< HEAD
  }
 
  
+=======
+ }
+>>>>>>> 70997edafb304cf08868128ea266adb433154e3c

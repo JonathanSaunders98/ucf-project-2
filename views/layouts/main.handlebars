@@ -1,40 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LangMentor</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
+    <head>
 
-<body>
-    <div class="wrapper">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <title>LangMentor</title>
 
-        <header class="hero">
-            <nav>
-                {{#if loggedIn}}
-                <button class="btn nav-button pointer" onclick="window.location.href='/dashboard'">Dashboard</button>
-                <button class="btn nav-button poitner" onclick="window.location.href='/blog'">Blog</button>
-                <button class="btn nav-button pointer" id="logout" class="btn-no-style" onclick="window.location.href='/'">Logout</button>
-                {{else}}
-                <button class="btn nav-button pointer" onclick="window.location.href='/login'">Login</button>
-                <button class="btn nav-button poitner" onclick="window.location.href='/blog'">Blog</button>
-                {{/if}}
+    </head>
+
+    <body class="bg-dark" style="margin: 0px;">
+
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light sticky-top testimonial">
+                <a class="navbar-brand text-dark" href="/"><strong>LangMentor</strong></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    {{#if loggedIn}}
+                        <a class="nav-link text-dark pointer" href='/dashboard'>Dashboard</a>
+                        <a class="nav-link text-dark pointer" href='/languages'>Languages</a>
+                        <a class="nav-link text-dark pointer" href='/#testimonials'>Testimonials</a>
+                        <a class="nav-link text-dark pointer" href='/chat-home.html'>Chat</a>
+                        <a class="nav-link text-dark pointer" href='/blog'>Blog</a>
+                        <a class="nav-link text-dark pointer" id="logout" class="btn-no-style" href='/'>Logout</a>
+                    {{else}}
+                        <a class="nav-link text-dark pointer" href='/#languages'>Languages</a>
+                        <a class="nav-link text-dark pointer" href='/#testimonials'>Testimonials</a>
+                        <a class="nav-link text-dark pointer" id="login" class="btn-no-style" href='/login'>Login</a>
+                    {{/if}}
+                </div>
             </nav>
-            <h1 class="app-title">
-                <a href="/">LangMentor</a>
-            </h1>
         </header>
 
-        <main class="flex-row justify-space-between">
         {{{ body }}}
-        </main>
-    </div>
-    
-    {{#if loggedIn}}
-    <script src="/javascript/logout.js"></script>
-    {{/if}}
-</body>
+
+        {{#if loggedIn}}
+        <script src="/javascript/logout.js"></script>
+        {{/if}}
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
 
 </html>

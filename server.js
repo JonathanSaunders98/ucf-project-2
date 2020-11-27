@@ -4,7 +4,38 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 require('dotenv').config;
 
-const translate = require('@vitalets/google-translate-api');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+const sequelize = require('./config/connection');
+const SequelizeStore = require('connect-session-sequelize')(
+    session.Store
+);
+
+const sess = {
+    secret: process.env.DB_SESSION_SECRET,
+    cookie: { maxAge: 9000000 },
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+        db: sequelize
+    })
+};
+
+app.use(session(sess));
+
+const helpers = require('./utils/helpers');
+
+const hbs = exphbs.create({ helpers });
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(require('./controllers/'));
 
 // bad words filter
 const Filter = require('bad-words'),
@@ -46,11 +77,7 @@ const {
 const server = http.createServer(app);
 const io = socketio(server);
 
-// socket.io
-// Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
-
-const botName = 'LangMentor Chat';
+const botName = 'ChatCord Bot';
 
 // Run when client connects
 io.on('connection', socket => {
@@ -107,45 +134,6 @@ io.on('connection', socket => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
-// Nikitk code
-// const app = express();
-// const PORT = process.env.PORT || 3307;
-
-const sequelize = require('./config/connection');
-const SequelizeStore = require('connect-session-sequelize')(
-    session.Store
-);
-
-const sess = {
-    secret: process.env.DB_SESSION_SECRET,
-    cookie: { maxAge: 9000000 },
-    resave: false,
-    saveUninitialized: true,
-    store: new SequelizeStore({
-        db: sequelize
-    })
-};
-
-app.use(session(sess));
-
-const helpers = require('./utils/helpers');
-
-const hbs = exphbs.create({ helpers });
-
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-app.use(require('./controllers/'));
-
-// sequelize.sync({ force: true }).then(() => {
-//     app.listen(PORT, () => console.log(`Now listening on ${PORT}`));
-// });
-
+sequelize.sync({ force: false }).then(() => {
+    server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+});
