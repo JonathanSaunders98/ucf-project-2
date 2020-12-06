@@ -46,7 +46,7 @@ Person to person language mentorship site that connects users with mentors fluen
 To Install necessary dependencies, run the following commands:  
 
 ```
-git clone git@github.com:JonathanSaunders98/ucf-project-2.git
+git clone https://github.com/JonathanSaunders98/ucf-project-2.git
 ```
 Create a `.env` file in the root directory with the following info
 > DB_NAME='langmentor_db'
@@ -96,7 +96,7 @@ n/a
 
 ## Link
 
-[Heroku Link](https://langmentor-ucf.herokuapp.com/index.html)
+[Heroku Link](https://langmentor.herokuapp.com)
 
 ## Questions?
 
